@@ -26,8 +26,8 @@ stories.add("default", () => {
       [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
   ];
 
-  const cells = matrixParser(matrix);
-  const story = (<Canvas cells={cells} />);
+  const task = matrixParser(matrix);
+  const story = (<Canvas task={task} />);
 
   specs(() =>
     describe("Displaying the canvas", () => {

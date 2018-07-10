@@ -26,4 +26,4 @@ const withGame = (taskUrl) => (WrappedComponent) => {
   }
 };
 
-export default withGame
+export default withGame;

@@ -1,5 +1,5 @@
 import React from 'react';
-import { compose, withHandlers, shouldUpdate} from "recompose";
+import { compose, withHandlers, shouldUpdate, branch, withState} from "recompose";
 import Tile from "../tile/index"
 import { map, isEqual } from "lodash";
 import styled from 'styled-components';
@@ -35,6 +35,15 @@ const Canvas = (props) => {
 };
 
 const enhance = compose(
+  branch(
+    ({task}) => (!task),
+    () => () => {return <div>loading</div>}
+  ),
+  withState("cells", "updateCells", ({task}) => task.cells),
+  withState("currX", "updateCurrX", ({task}) => task.currX),
+  withState("currY", "updateCurrY", ({task}) => task.currY),
+  withState("history", "updateHistory", []),
+
   // shouldUpdate((props, nextProps) => {
   //   return (
   //     !isEqual(props.cells, nextProps.cells)
