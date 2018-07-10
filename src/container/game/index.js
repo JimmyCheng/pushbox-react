@@ -1,13 +1,29 @@
 import React from 'react';
-import { compose, withState, branch} from "recompose";
+import matrixParser from "../../utility/matrixParser";
+const axios = require('axios');
 
-export default compose(
-  branch(
-    ({task}) => (!task),
-    () => () => {return <div>loading</div>}
-  ),
-  withState("cells", "updateCells", ({task}) => task.cells),
-  withState("currX", "updateCurrX", ({task}) => task.currX),
-  withState("currY", "updateCurrY", ({task}) => task.currY),
-  withState("history", "updateHistory", []),
-);
+const withGame = (taskUrl) => (WrappedComponent) => {
+  return class TaskLoader extends React.Component {
+    state = {
+      task: null
+    };
+
+    async initialize() {
+      const response = await axios.get(taskUrl);
+      const matrix = response.data.matrix;
+      this.setState({task: matrixParser(matrix)});
+    }
+
+    componentDidMount() {
+      this.initialize();
+    }
+
+    render() {
+      return (
+        <WrappedComponent task={this.state.task}/>
+      );
+    }
+  }
+};
+
+export default withGame

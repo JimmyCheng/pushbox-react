@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import withTask from "./container/task";
 import withGame from "./container/game";
+import withTask from "./container/task";
 import Canvas from "./components/canvas/index";
 
-const CanvasWithGame = withTask('tasks/task1.json')(withGame(Canvas));
+const CanvasWithGame = withGame('tasks/task1.json')(withTask(Canvas));
 
 class App extends Component {
   render() {

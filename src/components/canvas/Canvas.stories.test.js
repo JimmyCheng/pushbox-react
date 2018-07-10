@@ -27,8 +27,6 @@ stories.add("default", () => {
   ];
 
   const cells = matrixParser(matrix);
-  console.log("==============------->",cells);
-
   const story = (<Canvas cells={cells} />);
 
   specs(() =>
