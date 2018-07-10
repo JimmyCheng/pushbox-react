@@ -1,7 +1,7 @@
 import React from 'react';
-import { compose, withHandlers, withState, shouldUpdate} from "recompose";
+import { compose, withHandlers, shouldUpdate} from "recompose";
 import Tile from "../tile/index"
-import { map, filter, isEqual } from "lodash";
+import { map, isEqual } from "lodash";
 import styled from 'styled-components';
 
 import matrixParser from "../../utility/matrixParser";
@@ -23,6 +23,8 @@ const Canvas = (props) => {
     tiles.push(...rows);
   });
 
+  console.log("re-rendering");
+
   return (
     <div>
       <Wrapper tabIndex={0} onKeyDown={(e) => {props.onCanvasKeyDown(e);} }>
@@ -33,11 +35,11 @@ const Canvas = (props) => {
 };
 
 const enhance = compose(
-  shouldUpdate((props, nextProps) => {
-    return (
-      !isEqual(props.cells, nextProps.cells)
-    );
-  }),
+  // shouldUpdate((props, nextProps) => {
+  //   return (
+  //     !isEqual(props.cells, nextProps.cells)
+  //   );
+  // }),
 
   withHandlers({
     onCanvasKeyDown: (props) => (e) => {

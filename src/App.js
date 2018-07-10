@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import Task from "./container/task/index";
+import withTask from "./container/task";
+import withGame from "./container/game";
 import Canvas from "./components/canvas/index";
 
-const CanvasWithTask = Task(Canvas);
+const CanvasWithGame = withTask('tasks/task1.json')(withGame(Canvas));
 
 class App extends Component {
   render() {
@@ -20,7 +21,7 @@ class App extends Component {
           </p>
         </div>
 
-        <CanvasWithTask />
+        <CanvasWithGame />
       </div>
     );
   }
