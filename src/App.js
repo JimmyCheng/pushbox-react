@@ -4,7 +4,7 @@ import './App.css';
 import withGame from "./container/game";
 import Canvas from "./components/canvas/index";
 
-const CanvasWithGame = withGame('tasks/task1.json')(Canvas);
+const CanvasWithGame = withGame('tasks/task88.json')(Canvas);
 
 class App extends Component {
   render() {

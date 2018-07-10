@@ -79,13 +79,12 @@ const enhance = compose(
 
         case "KeyU":
         case "F2":
-           props.undo();
+           props.undo(); //TODO doesn't work
            return;
         default:
           return;
       }
 
-      console.log("props===>", props);
       // current cell, next cell and next next cell.
       const cCell = props.cells[props.currX][props.currY];
       const nCell = props.cells[props.currX + xflag][props.currY + yflag];
