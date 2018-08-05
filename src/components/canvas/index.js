@@ -1,10 +1,9 @@
 import React from 'react';
-import { compose, withHandlers, shouldUpdate, branch, withState} from "recompose";
+import { compose, withHandlers, branch, withState} from "recompose";
 import Tile from "../tile/index"
-import { map, isEqual } from "lodash";
+import { map } from "lodash";
 import styled from 'styled-components';
 
-import matrixParser from "../../utility/matrixParser";
 import DIRECTIONS from '../../consts/directions';
 
 const Wrapper = styled.div`
@@ -16,18 +15,16 @@ const Wrapper = styled.div`
   grid-auto-flow: row;
 `;
 
-const Canvas = (props) => {
+const Canvas = ({cells, onCanvasKeyDown}) => {
   let tiles = [];
-  props.cells.forEach(row => {
-    const rows = map(row, cell => (<Tile cell={cell}/>));
+  cells.forEach((row, rowIndex) => {
+    const rows = map(row, (cell, columnIndex) => (<Tile cell={cell} key={rowIndex*16 + columnIndex}/>));
     tiles.push(...rows);
   });
 
-  console.log("re-rendering");
-
   return (
     <div>
-      <Wrapper tabIndex={0} onKeyDown={(e) => {props.onCanvasKeyDown(e);} }>
+      <Wrapper tabIndex={0} onKeyDown={(e) => {onCanvasKeyDown(e);} }>
         {tiles}
       </Wrapper>
     </div>
@@ -36,19 +33,16 @@ const Canvas = (props) => {
 
 const enhance = compose(
   branch(
-    ({task}) => (!task),
-    () => () => {return <div>loading</div>}
+    ({task}) => { return  !task;},
+    () => () => {
+      return <div>loading</div>
+    }
   ),
+
   withState("cells", "updateCells", ({task}) => task.cells),
   withState("currX", "updateCurrX", ({task}) => task.currX),
   withState("currY", "updateCurrY", ({task}) => task.currY),
   withState("history", "updateHistory", []),
-
-  // shouldUpdate((props, nextProps) => {
-  //   return (
-  //     !isEqual(props.cells, nextProps.cells)
-  //   );
-  // }),
 
   withHandlers({
     onCanvasKeyDown: (props) => (e) => {
@@ -173,7 +167,7 @@ const enhance = compose(
       props.cells[currX][currY].spirit = true;
       props.updateCurrX(pos.currX);
       props.updateCurrY(pos.currY);
-      props.updateCells(props.cells);
+      props.updateCells(props.cells.slice(0));
       props.updateHistory(props.history);
     }
   })

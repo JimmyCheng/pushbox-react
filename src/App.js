@@ -1,34 +1,36 @@
-import React, { Component } from 'react';
+import React from 'react';
 import {
   BrowserRouter as Router,
   Route,
   Link
 } from 'react-router-dom';
 
-// import withGame from "./container/game";
-// import Canvas from "./components/canvas/index";
-//
-// const CanvasWithGame = withGame('tasks/task88.json')(Canvas);
+import WithGame from "./container/game/index";
 
-const Home = () => (
+const HomePage = () => (
   <div>
     <h2>Home</h2>
   </div>
-)
+);
 
-const About = () => (
+const AboutPage = () => (
   <div>
     <h2>About</h2>
   </div>
-)
+);
 
-const Task = ({ match }) => (
-  <div>
-    <h3>{match.params.taskId}</h3>
-  </div>
-)
+const TaskPage = ({ match }) => {
+  const taskId = match.params.taskId;
+  console.log("start to play taskId", taskId);
+  return (
+    <div>
+      <h3>{taskId}</h3>
+      <WithGame taskId = {taskId} key={taskId}/>
+    </div>
+  );
+};
 
-const Tasks = ({ match }) => (
+const TasksPage = ({ match }) => (
   <div>
     <h2>Tasks</h2>
     <ul>
@@ -47,15 +49,39 @@ const Tasks = ({ match }) => (
           Task3
         </Link>
       </li>
+      <li>
+        <Link to={`${match.url}/4`}>
+          Task4
+        </Link>
+      </li>
+      <li>
+        <Link to={`${match.url}/5`}>
+          Task5
+        </Link>
+      </li>
+      <li>
+        <Link to={`${match.url}/6`}>
+          Task6
+        </Link>
+      </li>
+      <li>
+        <Link to={`${match.url}/7`}>
+          Task7
+        </Link>
+      </li>
+      <li>
+        <Link to={`${match.url}/8`}>
+          Task8
+        </Link>
+      </li>
     </ul>
 
-    <Route path={`${match.path}/:taskId`} component={Task}/>
+    <Route path={`${match.path}/:taskId`} component={TaskPage}/>
     <Route exact path={match.path} render={() => (
       <h3>Please select a task.</h3>
     )}/>
   </div>
 );
-
 
 const App = () => (
   <Router>
@@ -63,14 +89,14 @@ const App = () => (
       <ul>
         <li><Link to="/">Home</Link></li>
         <li><Link to="/about">About</Link></li>
-        <li><Link to="/tasks">Topics</Link></li>
+        <li><Link to="/tasks">Tasks</Link></li>
       </ul>
 
       <hr/>
 
-      <Route exact path="/" component={Home}/>
-      <Route path="/about" component={About}/>
-      <Route path="/tasks" component={Tasks}/>
+      <Route exact path="/" component={HomePage}/>
+      <Route path="/about" component={AboutPage}/>
+      <Route path="/tasks" component={TasksPage}/>
     </div>
   </Router>
 );

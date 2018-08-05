@@ -1,9 +1,23 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import IMAGETABLE from '../../consts/imageTable';
 import DIRECTIONS from '../../consts/directions';
 import Animate from "../animate/index";
+
+import img_ball from "../../media/Ball.bmp";
+import img_black from "../../media/Black.bmp";
+import img_box from "../../media/Box.bmp";
+import img_boxFull from "../../media/BoxFull.bmp";
+import img_floor from "../../media/Floor.bmp";
+import img_pushDown1 from "../../media/PushD1.bmp";
+import img_pushDown2 from "../../media/PushD2.bmp";
+import img_pushLeft1 from "../../media/PushL1.bmp";
+import img_pushLeft2 from "../../media/PushL2.bmp";
+import img_pushRight1 from "../../media/PushR1.bmp";
+import img_pushRight2 from "../../media/PushR2.bmp";
+import img_pushUp1 from "../../media/PushU1.bmp";
+import img_pushUp2 from "../../media/PushU2.bmp";
+import img_wall from "../../media/Wall.bmp";
 
 const StaticBox = styled.div`
   background-color: #444;
@@ -13,39 +27,38 @@ const StaticBox = styled.div`
   font-size: 100%;
 `;
 
-const Tile = ({cell}) => {
+const getImage = (cell) => {
   if(cell.black) {
-    return (<div><img src={IMAGETABLE.IMG_BLACK}/></div>);
+    return (<img src={img_black} alt="black"/>);
   }
 
   if (cell.wall) {
-    return (<div><img src={IMAGETABLE.IMG_WALL}/></div>);
+    return (<img src={img_wall} alt="wall"/>);
   }
 
   // Priority to display the upper layer.
   // Box or Spirit -> Ball -> Floor.
   if (cell.box) {
     if (cell.ball) {
-      return (<div><img src={IMAGETABLE.IMG_BOXFULL}/></div>);
+      return (<img src={img_boxFull} alt={"boxfull"}/>);
     } else {
-      return (<div><img src={IMAGETABLE.IMG_BOX}/></div>);
+      return (<img src={img_box} alt="box"/>);
     }
   }
 
   if (cell.spirit) {
     switch (cell.action) {
       case DIRECTIONS.DOWN:
-        return (<Animate images={IMAGETABLE.IMG_PUSHDOWN}/>);
+        return (<Animate images={[img_pushDown1, img_pushDown2]} alt="pushdown"/>);
 
       case DIRECTIONS.LEFT:
-        return (<Animate images={IMAGETABLE.IMG_PUSHLEFT}/>);
+        return (<Animate images={[img_pushLeft1, img_pushLeft2]} alt="pushleft"/>);
 
       case DIRECTIONS.RIGHT:
-        return (<Animate images={IMAGETABLE.IMG_PUSHRIGHT}/>);
+        return (<Animate images={[img_pushRight1, img_pushRight2]} alt="pushright"/>);
 
       case DIRECTIONS.UP:
-        return (<Animate images={IMAGETABLE.IMG_PUSHUP}/>);
-
+        return (<Animate images={[img_pushUp1, img_pushUp2]} alt="pushup"/>);
       case DIRECTIONS.NONE:
       default:
         return null;
@@ -53,12 +66,20 @@ const Tile = ({cell}) => {
   }
 
   if (cell.ball) {
-    return (<div className="box"><img src={IMAGETABLE.IMG_BALL}/></div>);
+    return (<img src={img_ball} alt="ball"/>);
   }
 
   if (cell.floor) {
-    return (<div className="box"><img src={IMAGETABLE.IMG_FLOOR}/></div>);
+    return (<img src={img_floor} alt="floor"/>);
   }
+};
+
+const Tile = ({cell}) => {
+  return (
+    <StaticBox>
+      {getImage(cell)}
+    </StaticBox>
+  )
 };
 
 export default Tile;

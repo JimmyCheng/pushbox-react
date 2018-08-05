@@ -1,12 +1,12 @@
 export default {
-  IMG_BLACK: "images/Black.bmp",
-  IMG_BALL: "images/Ball.bmp",
-  IMG_FLOOR: "images/Floor.bmp",
-  IMG_WALL: "images/Wall.bmp",
-  IMG_BOX: "images/Box.bmp",
-  IMG_BOXFULL: "images/BoxFull.bmp",
-  IMG_PUSHUP: ["images/PushU1.bmp","images/PushU2.bmp"],
-  IMG_PUSHRIGHT: ["images/PushR1.bmp","images/PushR2.bmp"],
-  IMG_PUSHDOWN: ["images/PushD1.bmp", "images/PushD2.bmp"],
-  IMG_PUSHLEFT: ["images/PushL1.bmp", "images/PushL2.bmp"]
+  IMG_BLACK: "../../media/Black.bmp",
+  IMG_BALL: "../../media/Ball.bmp",
+  IMG_FLOOR: "../../media/Floor.bmp",
+  IMG_WALL: "../../media/Wall.bmp",
+  IMG_BOX: "../../media/Box.bmp",
+  IMG_BOXFULL: "../../media/BoxFull.bmp",
+  IMG_PUSHUP: ["../../media/PushU1.bmp","../../media/PushU2.bmp"],
+  IMG_PUSHRIGHT: ["../../media/PushR1.bmp","../../media/PushR2.bmp"],
+  IMG_PUSHDOWN: ["../../media/PushD1.bmp", "../../media/PushD2.bmp"],
+  IMG_PUSHLEFT: ["../../media/PushL1.bmp", "../../media/PushL2.bmp"]
 };

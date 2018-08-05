@@ -1,29 +1,26 @@
-import React from 'react';
+import { compose, withState, lifecycle } from "recompose";
 import matrixParser from "../../utility/matrixParser";
+import Canvas from "../../components/canvas/index";
+
 const axios = require('axios');
 
-const withGame = (taskUrl) => (WrappedComponent) => {
-  return class TaskLoader extends React.Component {
-    state = {
-      task: null
-    };
-
-    async initialize() {
-      const response = await axios.get(taskUrl);
-      const matrix = response.data.matrix;
-      this.setState({task: matrixParser(matrix)});
+const withTask = compose(
+  withState("task", "updateTask"),
+  lifecycle ({
+    componentWillMount() {
+      const taskUrl = `task${this.props.taskId}.json`;
+      axios.get(taskUrl)
+        .then(response => {
+          const matrix = response.data.matrix;
+          this.props.updateTask(matrixParser(matrix));
+        })
+        .catch(function (error) {
+          console.log(error);
+        })
+        .then(function () {
+        });
     }
+  })
+);
 
-    componentDidMount() {
-      this.initialize();
-    }
-
-    render() {
-      return (
-        <WrappedComponent task={this.state.task}/>
-      );
-    }
-  }
-};
-
-export default withGame;
+export default withTask(Canvas);
