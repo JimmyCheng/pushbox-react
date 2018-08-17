@@ -1,26 +1,45 @@
-import { compose, withState, lifecycle } from "recompose";
+import { compose, withState, withHandlers, shouldUpdate, withPropsOnChange } from "recompose";
+import axios from 'axios';
 import matrixParser from "../../utility/matrixParser";
-import Canvas from "../../components/canvas/index";
+import Game from "../../components/game/index";
 
-const axios = require('axios');
+const enhance = compose(
+  withState("taskId", "updateTaskId", 1),
+  withState("restarted", "updateRestarted", false),
+  withHandlers({
+    handleNextTask: ({ updateTaskId }) => () => updateTaskId(n => n + 1),
+    handlePrevTask: ({ updateTaskId }) => () => updateTaskId(n => n-1 > 0 ? n - 1: n),
+    handleReplay: ({ updateRestarted }) => () => updateRestarted(true),
+  }),
+  shouldUpdate(((props, nextProps) => {
+    return props.taskId !== nextProps.taskId || nextProps.restarted;
+  })),
 
-const withTask = compose(
-  withState("task", "updateTask"),
-  lifecycle ({
-    componentWillMount() {
-      const taskUrl = `task${this.props.taskId}.json`;
-      axios.get(taskUrl)
+  withState("cells", "updateCells"),
+  withState("currX", "updateCurrX"),
+  withState("currY", "updateCurrY"),
+  withState("boxCount", "updateBoxCount"),
+  withState("history", "updateHistory", []),
+
+  withPropsOnChange(["taskId", "restarted"], props => {
+    const { taskId, updateCells, updateCurrX, updateCurrY, updateBoxCount, updateRestarted } = props;
+    if(taskId) {
+      updateRestarted(false);
+      const taskUrl = `task${taskId}.json`;
+      return axios.get(taskUrl)
         .then(response => {
           const matrix = response.data.matrix;
-          this.props.updateTask(matrixParser(matrix));
+          const task = {...matrixParser(matrix), isLoading: false};
+          updateCells(task.cells);
+          updateCurrX(task.currX);
+          updateCurrY(task.currY);
+          updateBoxCount(task.boxCount);
         })
         .catch(function (error) {
           console.log(error);
-        })
-        .then(function () {
         });
     }
   })
 );
 
-export default withTask(Canvas);
+export default enhance(Game);

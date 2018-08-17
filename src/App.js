@@ -1,3 +1,5 @@
+//reference: https://reacttraining.com/react-router/web/example/basic
+
 import React from 'react';
 import {
   BrowserRouter as Router,
@@ -5,7 +7,7 @@ import {
   Link
 } from 'react-router-dom';
 
-import WithGame from "./container/game/index";
+import Game from "./container/game/index";
 
 const HomePage = () => (
   <div>
@@ -24,8 +26,7 @@ const TaskPage = ({ match }) => {
   console.log("start to play taskId", taskId);
   return (
     <div>
-      <h3>{taskId}</h3>
-      <WithGame taskId = {taskId} key={taskId}/>
+      <Game taskId = {taskId}/>
     </div>
   );
 };
@@ -54,28 +55,7 @@ const TasksPage = ({ match }) => (
           Task4
         </Link>
       </li>
-      <li>
-        <Link to={`${match.url}/5`}>
-          Task5
-        </Link>
-      </li>
-      <li>
-        <Link to={`${match.url}/6`}>
-          Task6
-        </Link>
-      </li>
-      <li>
-        <Link to={`${match.url}/7`}>
-          Task7
-        </Link>
-      </li>
-      <li>
-        <Link to={`${match.url}/8`}>
-          Task8
-        </Link>
-      </li>
     </ul>
-
     <Route path={`${match.path}/:taskId`} component={TaskPage}/>
     <Route exact path={match.path} render={() => (
       <h3>Please select a task.</h3>
