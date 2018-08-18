@@ -41,9 +41,9 @@ const onCanvasKeyDown = (props) => (e) => {
       direct = DIRECTIONS.DOWN;
       break;
 
-    case "KeyU":
+    case "u":
     case "F2":
-      undo(props); //TODO doesn't work
+      undo(props);
       return;
     default:
       return;
@@ -75,7 +75,7 @@ const onCanvasKeyDown = (props) => (e) => {
     boxmoved: false
   };
 
-
+  //move box to the next position.
   if (nCell.box) {
     nCell.box = false;
     nnCell.box = true;
@@ -91,7 +91,6 @@ const onCanvasKeyDown = (props) => (e) => {
 };
 
 const undo = (props) => {
-  console.log("undo is envoked...");
   if (props.history.length === 0) {
     return;
   }
@@ -133,9 +132,9 @@ const undo = (props) => {
   }
 
   //set new  position.
-  props.cells[currX][currY].spirit = true;
-  props.updateCurrX(pos.currX);
-  props.updateCurrY(pos.currY);
+  props.cells[pos.x][pos.y].spirit = true;
+  props.updateCurrX(pos.x);
+  props.updateCurrY(pos.y);
   props.updateCells(props.cells.slice(0));
   props.updateHistory(props.history);
 };
