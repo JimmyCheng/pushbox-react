@@ -5,14 +5,14 @@ import Game from "../../components/game/index";
 
 const enhance = compose(
   withState("taskId", "updateTaskId", 1),
-  withState("restarted", "updateRestarted", false),
+  withState("retry", "updateRetry", 1),
   withHandlers({
     handleNextTask: ({ updateTaskId }) => () => updateTaskId(n => n + 1),
     handlePrevTask: ({ updateTaskId }) => () => updateTaskId(n => n-1 > 0 ? n - 1: n),
-    handleReplay: ({ updateRestarted }) => () => updateRestarted(true),
+    handleReplay: ({ updateRetry }) => () => updateRetry(n => n + 1),
   }),
   shouldUpdate(((props, nextProps) => {
-    return props.taskId !== nextProps.taskId || nextProps.restarted;
+    return props.taskId !== nextProps.taskId || props.retry !== nextProps.retry;
   })),
 
   withState("cells", "updateCells"),
@@ -21,10 +21,9 @@ const enhance = compose(
   withState("boxCount", "updateBoxCount"),
   withState("history", "updateHistory", []),
 
-  withPropsOnChange(["taskId", "restarted"], props => {
-    const { taskId, updateCells, updateCurrX, updateCurrY, updateBoxCount, updateRestarted } = props;
+  withPropsOnChange(["taskId", "retry"], props => {
+    const { taskId, updateCells, updateCurrX, updateCurrY, updateBoxCount } = props;
     if(taskId) {
-      updateRestarted(false);
       const taskUrl = `task${taskId}.json`;
       return axios.get(taskUrl)
         .then(response => {
