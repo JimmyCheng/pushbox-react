@@ -50,9 +50,9 @@ const onCanvasKeyDown = (props) => (e) => {
   }
 
   // current cell, next cell and next next cell.
-  const cCell = props.cells[props.currX][props.currY];
-  const nCell = props.cells[props.currX + xflag][props.currY + yflag];
-  const nnCell = props.cells[props.currX + xflag + xflag][props.currY + yflag + yflag];
+  const cCell = props.grid[props.currX][props.currY];
+  const nCell = props.grid[props.currX + xflag][props.currY + yflag];
+  const nnCell = props.grid[props.currX + xflag + xflag][props.currY + yflag + yflag];
 
   // Can't move
   if (nCell.wall) {
@@ -86,7 +86,7 @@ const onCanvasKeyDown = (props) => (e) => {
   props.history.push(position);
   props.updateCurrX(props.currX + xflag);
   props.updateCurrY(props.currY + yflag);
-  props.updateCells(props.cells);
+  props.updateGrid(props.grid);
   props.updateHistory(props.history);
 };
 
@@ -99,14 +99,14 @@ const undo = (props) => {
   const currY = props.currY;
 
   //restore current position.
-  props.cells[currX][currY].spirit = false;
+  props.grid[currX][currY].spirit = false;
 
   const pos = props.history.pop();
   let xflag = 0;
   let yflag = 0;
 
   if(pos.boxmoved) {
-    props.cells[currX][currY].box = true;
+    props.grid[currX][currY].box = true;
 
     switch(pos.dir) {
       case DIRECTIONS.UP: //UP
@@ -128,23 +128,23 @@ const undo = (props) => {
       default:
         return;
     }
-    props.cells[currX + xflag][currY + yflag].box = false;
+    props.grid[currX + xflag][currY + yflag].box = false;
   }
 
   props.updateSteps(props.steps + 1);
   //set new  position.
-  props.cells[pos.x][pos.y].spirit = true;
+  props.grid[pos.x][pos.y].spirit = true;
   props.updateCurrX(pos.x);
   props.updateCurrY(pos.y);
-  props.updateCells(props.cells.slice(0));
+  props.updateGrid(props.grid.slice(0));
   props.updateHistory(props.history);
 };
 
-const Canvas = ({cells, onCanvasKeyDown}) => {
-  console.log("show the cells", cells);
+const Canvas = ({grid, onCanvasKeyDown}) => {
+  console.log("show the grid", grid);
   let tiles = [];
-  if(cells && cells.length > 0) {
-    cells.forEach((row, rowIndex) => {
+  if(grid && grid.length > 0) {
+    grid.forEach((row, rowIndex) => {
       const rows = map(row, (cell, columnIndex) => (<Tile cell={cell} key={rowIndex * 16 + columnIndex}/>));
       tiles.push(...rows);
     });

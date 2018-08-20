@@ -1,7 +1,7 @@
 import DIRECTIONS from '../consts/directions';
 
 const matrixParser = (matrix) => {
-  const cells = [];
+  const grid = [];
   let boxCount = 0;
   let currX = 0;
   let currY = 0;
@@ -63,11 +63,11 @@ const matrixParser = (matrix) => {
       rows.push(cell);
     });
 
-    cells.push(rows);
+    grid.push(rows);
   });
 
   return {
-    cells,
+    grid,
     boxCount,
     currX,
     currY

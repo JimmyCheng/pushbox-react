@@ -19,21 +19,21 @@ const enhance = compose(
       props.steps !== nextProps.steps;
   })),
 
-  withState("cells", "updateCells"),
+  withState("grid", "updateGrid"),
   withState("currX", "updateCurrX"),
   withState("currY", "updateCurrY"),
   withState("boxCount", "updateBoxCount"),
   withState("history", "updateHistory", []),
 
   withPropsOnChange(["taskId", "retry"], props => {
-    const { taskId, updateCells, updateCurrX, updateCurrY, updateBoxCount } = props;
+    const { taskId, updateGrid, updateCurrX, updateCurrY, updateBoxCount } = props;
     if(taskId) {
       const taskUrl = `task${taskId}.json`;
       return axios.get(taskUrl)
         .then(response => {
           const matrix = response.data.matrix;
           const task = {...matrixParser(matrix), isLoading: false};
-          updateCells(task.cells);
+          updateGrid(task.grid);
           updateCurrX(task.currX);
           updateCurrY(task.currY);
           updateBoxCount(task.boxCount);
