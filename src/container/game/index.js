@@ -26,7 +26,7 @@ const enhance = compose(
   withState("history", "updateHistory", []),
 
   withPropsOnChange(["taskId", "retry"], props => {
-    const { taskId, updateGrid, updateCurrX, updateCurrY, updateBoxCount } = props;
+    const { taskId, updateGrid, updateCurrX, updateCurrY, updateBoxCount, updateHistory, updateSteps } = props;
     if(taskId) {
       const taskUrl = `task${taskId}.json`;
       return axios.get(taskUrl)
@@ -37,6 +37,8 @@ const enhance = compose(
           updateCurrX(task.currX);
           updateCurrY(task.currY);
           updateBoxCount(task.boxCount);
+          updateHistory([]);
+          updateSteps(0);
         })
         .catch(function (error) {
           console.log(error);
