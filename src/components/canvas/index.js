@@ -64,6 +64,7 @@ const onCanvasKeyDown = (props) => (e) => {
   }
 
   // Can move.
+  props.updateSteps(props.steps + 1);
   cCell.spirit = false;
   nCell.spirit = true;
   nCell.action = direct;
@@ -83,7 +84,6 @@ const onCanvasKeyDown = (props) => (e) => {
   }
 
   props.history.push(position);
-
   props.updateCurrX(props.currX + xflag);
   props.updateCurrY(props.currY + yflag);
   props.updateCells(props.cells);
@@ -131,6 +131,7 @@ const undo = (props) => {
     props.cells[currX + xflag][currY + yflag].box = false;
   }
 
+  props.updateSteps(props.steps + 1);
   //set new  position.
   props.cells[pos.x][pos.y].spirit = true;
   props.updateCurrX(pos.x);
@@ -151,7 +152,7 @@ const Canvas = ({cells, onCanvasKeyDown}) => {
 
   return (
     <div>
-      <Wrapper tabIndex={0} onKeyDown={(e) => {onCanvasKeyDown(e);} }>
+      <Wrapper tabIndex={0} onKeyDown={e => onCanvasKeyDown(e) }>
         {tiles}
       </Wrapper>
     </div>
@@ -160,7 +161,6 @@ const Canvas = ({cells, onCanvasKeyDown}) => {
 
 const enhance = compose(
   withHandlers({onCanvasKeyDown})
-
 );
 
 export default enhance(Canvas);

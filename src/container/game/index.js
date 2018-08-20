@@ -6,13 +6,17 @@ import Game from "../../components/game/index";
 const enhance = compose(
   withState("taskId", "updateTaskId", 1),
   withState("retry", "updateRetry", 1),
+  withState("steps", "updateSteps", 0),
   withHandlers({
-    handleNextTask: ({ updateTaskId }) => () => updateTaskId(n => n + 1),
+    handleNextTask: ({ updateTaskId}) => () => updateTaskId(n => n + 1),
     handlePrevTask: ({ updateTaskId }) => () => updateTaskId(n => n-1 > 0 ? n - 1: n),
     handleReplay: ({ updateRetry }) => () => updateRetry(n => n + 1),
+    handleSteps: ({ updateSteps }) => () => updateSteps(n => n + 1),
   }),
   shouldUpdate(((props, nextProps) => {
-    return props.taskId !== nextProps.taskId || props.retry !== nextProps.retry;
+    return props.taskId !== nextProps.taskId ||
+      props.retry !== nextProps.retry ||
+      props.steps !== nextProps.steps;
   })),
 
   withState("cells", "updateCells"),
