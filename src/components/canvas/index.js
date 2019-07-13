@@ -13,6 +13,7 @@ const Wrapper = styled.div`
   grid-template-columns: repeat(16, 30px);
   grid-template-rows: repeat(14, 30px);
   grid-auto-flow: row;
+  visibility: visible
 `;
 
 const onCanvasKeyDown = (props) => (e) => {
@@ -88,7 +89,33 @@ const onCanvasKeyDown = (props) => (e) => {
   props.updateCurrY(props.currY + yflag);
   props.updateGrid(props.grid);
   props.updateHistory(props.history);
+
+  //check game win.
+
 };
+
+/**
+ * Check whether the game has been finished.
+ */
+const gameWin = (props) => {
+  let gameFinished = true;
+  for (let i = 0; i < 14; i++) {
+    for (let j = 0; j < 16; j++) {
+      const cell = props.grid[i][j];
+      if(cell.ball && !cell.box) {
+        gameFinished = false;
+        break;
+      }
+    }
+    if(!gameFinished) {
+      break;
+    }
+  }
+
+  if(gameFinished) {
+
+  }
+}
 
 const undo = (props) => {
   if (props.history.length === 0) {
@@ -131,7 +158,8 @@ const undo = (props) => {
     props.grid[currX + xflag][currY + yflag].box = false;
   }
 
-  props.updateSteps(props.steps + 1);
+  //props.updateSteps(props.steps + 1);
+  props.handleSteps();
   //set new  position.
   props.grid[pos.x][pos.y].spirit = true;
   props.updateCurrX(pos.x);
@@ -140,7 +168,7 @@ const undo = (props) => {
   props.updateHistory(props.history);
 };
 
-const Canvas = ({grid, onCanvasKeyDown}) => {
+const Canvas = ({grid, onCanvasKeyDown, gameOver}) => {
   console.log("show the grid", grid);
   let tiles = [];
   if(grid && grid.length > 0) {
