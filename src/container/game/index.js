@@ -1,10 +1,11 @@
-import { compose, withState, withHandlers, shouldUpdate, withPropsOnChange } from "recompose";
-import axios from 'axios';
+import { compose, withProps, withState, withHandlers, shouldUpdate, withPropsOnChange } from "recompose";
+import tasks from "../../consts/tasks";
 import matrixParser from "../../utility/matrixParser";
-import Game from "../../components/game/index";
+import Game from "../../components/game";
 
-const enhance = compose(
-  withState("taskId", "updateTaskId", 1),
+const withGameData = compose(
+    withProps( ({match}) => {return {initialTask: match.params.id}}),
+  withState("taskId", "updateTaskId", ({initialTask}) => initialTask),
   withState("retry", "updateRetry", 1),
   withState("steps", "updateSteps", 0),
   withHandlers({
@@ -28,23 +29,18 @@ const enhance = compose(
   withPropsOnChange(["taskId", "retry"], props => {
     const { taskId, updateGrid, updateCurrX, updateCurrY, updateBoxCount, updateHistory, updateSteps } = props;
     if(taskId) {
-      const taskUrl = `task${taskId}.json`;
-      return axios.get(taskUrl)
-        .then(response => {
-          const matrix = response.data.matrix;
-          const task = {...matrixParser(matrix), isLoading: false};
-          updateGrid(task.grid);
-          updateCurrX(task.currX);
-          updateCurrY(task.currY);
-          updateBoxCount(task.boxCount);
-          updateHistory([]);
-          updateSteps(0);
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
+      const matrix = tasks[`task${taskId}`];
+      console.log("the matrix is===>", matrix);
+      const task = {...matrixParser(matrix), isLoading: false};
+      console.log("the task is===>", task);
+      updateGrid(task.grid);
+      updateCurrX(task.currX);
+      updateCurrY(task.currY);
+      updateBoxCount(task.boxCount);
+      updateHistory([]);
+      updateSteps(0);
     }
   })
 );
 
-export default enhance(Game);
+export default withGameData(Game);

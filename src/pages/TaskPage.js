@@ -1,14 +1,13 @@
 import React from "react";
-import Game from "../app";
+import Game from "../container/game";
 
-const TaskPage = ({ match }) => {
-  const taskId = match.params.taskId;
-  console.log("start to play taskId", taskId);
+const TaskPage = props => {
   return (
     <div>
-      <Game taskId = {taskId}/>
+      <Game {...props}/>
     </div>
   );
 };
+
 
 export default TaskPage;
