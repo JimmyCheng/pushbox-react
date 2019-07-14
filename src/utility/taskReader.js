@@ -2,8 +2,6 @@ const fs = require('fs');
 
 const taskReader = (path, taskId) => {
   const fileName = `${path}/task${taskId}.tsk`;
-  console.log(fileName);
-
   let buf = fs.readFileSync(fileName, null);
   let matrix = [];
 
@@ -21,27 +19,36 @@ const taskReader = (path, taskId) => {
   return matrix;
 };
 
-const writeToJson = (matrix, path, taskId) => {
+const writeToJson = (matrixes, path) => {
   //to make it more readable, use following routine rather than JSON.stringify.
   let json =`{\n`;
-  json = json.concat(`  "matrix": [\n`);
 
-  for (let i = 0; i < 14; i++) {
-    json = json.concat(`    [`);
-    for (let j = 0; j < 15; j++) {
-      json = json.concat(`${matrix[i][j]},`);
-    }
-    json = json.concat(`${matrix[i][15]}]`);
+  let count = 0;
+  matrixes.forEach((matrix, key) => {
+    count++;
+    json = json.concat(`  "${key}": [\n`);
+    for (let i = 0; i < 14; i++) {
+      json = json.concat(`    [`);
+      for (let j = 0; j < 15; j++) {
+        json = json.concat(`${matrix[i][j]},`);
+      }
+      json = json.concat(`${matrix[i][15]}]`);
 
-    if(i != 13){
-      json = json.concat(`,`);
+      if(i != 13){
+        json = json.concat(`,`);
+      }
+      json = json.concat(`\n`);
     }
-    json = json.concat(`\n`);
-  }
-  json = json.concat(`  ]\n`);
+    if(count < matrixes.size) {
+      json = json.concat(`  ],\n`);
+    } else {
+      json = json.concat(`  ]\n`);
+    }
+  });
+
   json = json.concat(`}\n`);
 
-  fs.writeFile(`${path}/task${taskId}.json`, json,
+  fs.writeFile(`${path}/tasks.json`, json,
     function(err) {
     if (err) {
       return console.log(err);
@@ -49,10 +56,20 @@ const writeToJson = (matrix, path, taskId) => {
   });
 };
 
-//conver the binary task to task.json.
-// for(let i=1; i<=100; i++) {
-//   writeToJson(taskReader(__dirname, i), __dirname, i);
-// }
+//conver the binary tasks to one big json file task.json.
+const generateJSON = () => {
+  const matrices = new Map();
+
+  for(let i=1; i<=100; i++) {
+    const path = __dirname + "/task";
+    const matrix = taskReader(path, i);
+    matrices.set("task" +i, matrix);
+  }
+
+  writeToJson(matrices, __dirname);
+};
+
+generateJSON();
 
 export default taskReader;
 

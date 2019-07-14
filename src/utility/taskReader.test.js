@@ -18,7 +18,7 @@ test("could read the task 1 from the task file", () => {
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
   ];
 
-  const task = taskReader(__dirname, 1);
+  const task = taskReader(__dirname + "\\task", 1);
 
   expect(task).toEqual(expected);
 });
@@ -40,7 +40,7 @@ test("could read the task 93 from the task file", () => {
     [0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
   ];
-  const task = taskReader(__dirname, 93);
+  const task = taskReader(__dirname + "\\task", 93);
 
   expect(task).toEqual(expected);
 });
