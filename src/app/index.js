@@ -8,6 +8,7 @@ import HomePage from "../pages/HomePage";
 import AboutPage from "../pages/AboutPage";
 import TasksPage from "../pages/TasksPage";
 import TaskPage from "../pages/TaskPage";
+import AlbumPage from "../pages/Album";
 
 const App = props => {
   return (
@@ -27,6 +28,9 @@ const App = props => {
 
             <Route exact path="/task/:id" render={({ match }) => {
                 return <TaskPage {...props} match={match} />;
+            }}/>
+            <Route exact path="/album" render={({ match }) => {
+                return <AlbumPage {...props} match={match} />;
             }}/>
         </Switch>
       </Router>
