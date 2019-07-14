@@ -6,31 +6,31 @@ import CardActions from "@material-ui/core/CardActions";
 import Button from "@material-ui/core/Button";
 import React from "react";
 import useStyles from "../../consts/useStyles";
+import task88 from "../../media/task/task88.png";
 
-const GameCard = () => {
-
+const GameCard = ({taskId}) => {
     const classes = useStyles();
     return (
         <Card className={classes.card}>
             <CardMedia
                 className={classes.cardMedia}
-                image="https://source.unsplash.com/random"
+                image={task88}
                 title="Image title"
             />
             <CardContent className={classes.cardContent}>
                 <Typography gutterBottom variant="h5" component="h2">
-                    Heading
+                    LEVEL {taskId}
                 </Typography>
                 <Typography>
-                    This is a media card. You can use this section to describe the content.
+                    Best Time: 100 seconds
+                </Typography>
+                <Typography>
+                    Best Steps: 100 steps
                 </Typography>
             </CardContent>
             <CardActions>
                 <Button size="small" color="primary">
-                    View
-                </Button>
-                <Button size="small" color="primary">
-                    Edit
+                    Play
                 </Button>
             </CardActions>
         </Card>
