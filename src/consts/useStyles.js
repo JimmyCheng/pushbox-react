@@ -30,6 +30,9 @@ const useStyles = makeStyles(theme => ({
         backgroundColor: theme.palette.background.paper,
         padding: theme.spacing(6),
     },
+    rightIcon: {
+        marginLeft: theme.spacing(1),
+    },
 }));
 
 export default useStyles;
