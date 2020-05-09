@@ -13,19 +13,9 @@ import matrixParser from "../../utility/matrixParser";
 import Game from "../../components/game";
 
 const withGameData = compose(
-  withProps(({ match }) => {
-    return { initialTask: parseInt(match.params.id) };
-  }),
-  withState("taskId", "updateTaskId", ({ initialTask }) => initialTask),
   withState("retry", "updateRetry", 1),
   withState("steps", "updateSteps", 0),
-  withHandlers({
-    handleNextTask: ({ updateTaskId }) => () => updateTaskId(n => n + 1),
-    handlePrevTask: ({ updateTaskId }) => () =>
-      updateTaskId(n => (n - 1 > 0 ? n - 1 : n)),
-    handleReplay: ({ updateRetry }) => () => updateRetry(n => n + 1),
-    handleSteps: ({ updateSteps }) => () => updateSteps(n => n + 1)
-  }),
+
   shouldUpdate((props, nextProps) => {
     return (
       props.taskId !== nextProps.taskId ||
