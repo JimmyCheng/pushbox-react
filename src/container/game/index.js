@@ -6,13 +6,15 @@ import {
   shouldUpdate,
   withPropsOnChange
 } from "recompose";
+
+import { parseInt } from "lodash";
 import tasks from "../../consts/tasks";
 import matrixParser from "../../utility/matrixParser";
 import Game from "../../components/game";
 
 const withGameData = compose(
   withProps(({ match }) => {
-    return { initialTask: match.params.id };
+    return { initialTask: parseInt(match.params.id) };
   }),
   withState("taskId", "updateTaskId", ({ initialTask }) => initialTask),
   withState("retry", "updateRetry", 1),
@@ -49,6 +51,7 @@ const withGameData = compose(
       updateSteps
     } = props;
     if (taskId) {
+      console.log("the task id is===>", taskId);
       const matrix = tasks[`task${taskId}`];
       console.log("the matrix is===>", matrix);
       const task = { ...matrixParser(matrix), isLoading: false };
