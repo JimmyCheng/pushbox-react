@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { map } from "lodash";
 import styled from "styled-components";
 
+import tasks from "../../consts/tasks";
+import matrixParser from "../../utility/matrixParser";
 import Tile from "../tile/index";
 import DIRECTIONS from "../../consts/directions";
 
@@ -37,12 +39,22 @@ const Wrapper = styled.div`
 //   }
 // };
 
-const Canvas = ({ task }) => {
-  const [grid, updateGrid] = useState(task.grid);
-  const [currX, updateCurrX] = useState(task.currX);
-  const [currY, updateCurrY] = useState(task.currY);
+const Canvas = ({ taskId }) => {
+  const [grid, updateGrid] = useState();
+  const [currX, updateCurrX] = useState();
+  const [currY, updateCurrY] = useState();
   const [history, updateHistory] = useState([]);
   const [steps, updateSteps] = useState(0);
+
+  useEffect(() => {
+    const matrix = tasks[`task${taskId}`];
+    const task = matrixParser(matrix);
+    updateGrid(task.grid);
+    updateCurrX(task.currX);
+    updateCurrY(task.currY);
+    updateHistory([]);
+    updateSteps(0);
+  }, [taskId]);
 
   const undo = () => {
     if (history.length === 0) {
