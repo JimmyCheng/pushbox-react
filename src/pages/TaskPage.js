@@ -1,7 +1,6 @@
 import React from "react";
 import { useRouteMatch, useHistory } from "react-router-dom";
-import { get } from "lodash";
-import Game from "../components/game";
+import Game from "../components/game/index";
 
 const TaskPage = props => {
   const match = useRouteMatch("/task/:id");
