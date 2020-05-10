@@ -1,13 +1,18 @@
-import React from "react";
-import Canvas from "../canvas/index";
+import React, { useState, useEffect, Fragment } from "react";
 
-const Game = props => {
-  console.log("the props are===>", JSON.stringify(props, "", 2));
+import tasks from "../../consts/tasks";
+import Canvas from "../canvas/index";
+import matrixParser from "../../utility/matrixParser";
+
+const Game = ({ taskId }) => {
+  const matrix = tasks[`task${taskId}`];
+  const task = matrixParser(matrix);
+  console.log("taskId is===>", taskId);
+  console.log("matrix is===>", matrix);
+
   return (
     <div>
-      <h1>You are playing task: {props.taskId}</h1>
-      <h1>You have moved steps: {props.steps}</h1>
-      <Canvas {...props} />
+      <Canvas task={task} />
     </div>
   );
 };

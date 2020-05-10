@@ -1,7 +1,7 @@
 import React from "react";
 import { useRouteMatch, useHistory } from "react-router-dom";
 import { get } from "lodash";
-import Game from "../container/game";
+import Game from "../components/game";
 
 const TaskPage = props => {
   const match = useRouteMatch("/task/:id");
@@ -25,7 +25,6 @@ const TaskPage = props => {
   return (
     <div>
       <Game taskId={taskId} />
-
       <button onClick={handleNextTask}>Next</button>
       <button onClick={handlePreviousTask}>Prev</button>
       <button onClick={handleReplay}>Replay</button>

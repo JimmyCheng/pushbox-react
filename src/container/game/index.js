@@ -13,9 +13,6 @@ import matrixParser from "../../utility/matrixParser";
 import Game from "../../components/game";
 
 const withGameData = compose(
-  withState("retry", "updateRetry", 1),
-  withState("steps", "updateSteps", 0),
-
   shouldUpdate((props, nextProps) => {
     return (
       props.taskId !== nextProps.taskId ||
@@ -51,7 +48,6 @@ const withGameData = compose(
       updateCurrY(task.currY);
       updateBoxCount(task.boxCount);
       updateHistory([]);
-      updateSteps(0);
     }
   })
 );
