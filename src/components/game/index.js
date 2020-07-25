@@ -4,7 +4,7 @@ import styled from "styled-components";
 
 import tasks from "../../consts/tasks";
 import matrixParser from "../../utility/matrixParser";
-import Tile from "../tile/index";
+import Tile from "../Tile/index";
 import DIRECTIONS from "../../consts/directions";
 
 const Wrapper = styled.div`

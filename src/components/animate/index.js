@@ -1,5 +1,5 @@
-import React from 'react';
-import styled, { keyframes } from 'styled-components';
+import React from "react";
+import styled, { keyframes } from "styled-components";
 
 const fade = keyframes`
   0% {
@@ -17,7 +17,7 @@ const fade = keyframes`
 `;
 
 const Section = styled.section`
-   position: relative;
+  position: relative;
 `;
 
 const Img = styled.img`
@@ -32,13 +32,13 @@ const ImgTop = styled.img`
   animation-direction: alternate;
 `;
 
-const Animate = ({images}) => {
-   return (
-     <Section>
-       <Img src={images[0]}/>
-       <ImgTop src={images[1]}/>
-     </Section>
-   );
+const Animate = ({ images }) => {
+  return (
+    <Section>
+      <Img src={images[0]} />
+      <ImgTop src={images[1]} />
+    </Section>
+  );
 };
 
 export default Animate;

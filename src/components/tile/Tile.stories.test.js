@@ -1,27 +1,27 @@
-import React from 'react';
+import React from "react";
 import { mount } from "enzyme";
 import expect from "expect";
 
 import Tile from ".";
 import DIRECTIONS from "../../consts/directions";
-import { specs, describe, it, storiesOf } from '../../../.storybook/facade';
+import { specs, describe, it, storiesOf } from "../../../.storybook/facade";
 const stories = storiesOf("Game/tile", module);
 
 const initCell = () => ({
-   black: false,
-   wall: false,
-   floor: false,
-   box: false,
-   ball: false,
-   spirit: false,
-   action: 0
+  black: false,
+  wall: false,
+  floor: false,
+  box: false,
+  ball: false,
+  spirit: false,
+  action: 0
 });
 
 stories.add("background", () => {
   let cell = initCell();
   cell.black = true;
 
-  const story = (<Tile cell={cell} />);
+  const story = <Tile cell={cell} />;
   specs(() =>
     describe("Displaying the background", () => {
       it("render without error", () => {
@@ -37,7 +37,7 @@ stories.add("background", () => {
 stories.add("ball", () => {
   let cell = initCell();
   cell.ball = true;
-  const story = (<Tile cell={cell} />);
+  const story = <Tile cell={cell} />;
   specs(() =>
     describe("Displaying the ball", () => {
       it("render without error", () => {
@@ -53,7 +53,7 @@ stories.add("ball", () => {
 stories.add("floor", () => {
   let cell = initCell();
   cell.floor = true;
-  const story = (<Tile cell={cell} />);
+  const story = <Tile cell={cell} />;
 
   specs(() =>
     describe("Displaying the floor", () => {
@@ -70,7 +70,7 @@ stories.add("floor", () => {
 stories.add("wall", () => {
   let cell = initCell();
   cell.wall = true;
-  const story = (<Tile cell={cell} />);
+  const story = <Tile cell={cell} />;
 
   specs(() =>
     describe("Displaying the wall", () => {
@@ -87,7 +87,7 @@ stories.add("wall", () => {
 stories.add("box", () => {
   let cell = initCell();
   cell.box = true;
-  const story = (<Tile cell={cell} />);
+  const story = <Tile cell={cell} />;
   specs(() =>
     describe("Displaying the box", () => {
       it("render without error", () => {
@@ -105,7 +105,7 @@ stories.add("box with ball", () => {
   cell.box = true;
   cell.ball = true;
 
-  const story = (<Tile cell={cell} />);
+  const story = <Tile cell={cell} />;
 
   specs(() =>
     describe("Displaying the box with ball", () => {
@@ -124,7 +124,7 @@ stories.add("push up", () => {
   cell.spirit = true;
   cell.action = DIRECTIONS.UP;
 
-  const story = (<Tile cell={cell} />);
+  const story = <Tile cell={cell} />;
 
   specs(() =>
     describe("Displaying push up", () => {
@@ -142,7 +142,7 @@ stories.add("push right", () => {
   let cell = initCell();
   cell.spirit = true;
   cell.action = DIRECTIONS.RIGHT;
-  const story = (<Tile cell={cell} />);
+  const story = <Tile cell={cell} />;
 
   specs(() =>
     describe("Displaying push right action 1", () => {
@@ -160,7 +160,7 @@ stories.add("push left", () => {
   let cell = initCell();
   cell.spirit = true;
   cell.action = DIRECTIONS.LEFT;
-  const story = (<Tile cell={cell} />);
+  const story = <Tile cell={cell} />;
 
   specs(() =>
     describe("Displaying push left action 1", () => {
@@ -178,7 +178,7 @@ stories.add("push down", () => {
   let cell = initCell();
   cell.spirit = true;
   cell.action = DIRECTIONS.DOWN;
-  const story = (<Tile cell={cell} />);
+  const story = <Tile cell={cell} />;
 
   specs(() =>
     describe("Displaying push down action 1", () => {

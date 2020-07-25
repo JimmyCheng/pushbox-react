@@ -1,16 +1,16 @@
-import React from 'react';
+import React from "react";
 import { mount } from "enzyme";
 import expect from "expect";
 
-import { specs, describe, it, storiesOf } from '../../../.storybook/facade';
+import { specs, describe, it, storiesOf } from "../../../.storybook/facade";
 const stories = storiesOf("Game/animation", module);
 
-import IMAGETABLE from '../../consts/imageTable';
+import IMAGETABLE from "../../consts/imageTable";
 
 import Animate from ".";
 
 stories.add("push up", () => {
-  const story = (<Animate images={IMAGETABLE.IMG_PUSHUP}/>);
+  const story = <Animate images={IMAGETABLE.IMG_PUSHUP} />;
   specs(() =>
     describe("Displaying push up action", () => {
       it("render without error", () => {
@@ -24,7 +24,7 @@ stories.add("push up", () => {
 });
 
 stories.add("push right", () => {
-  const story = (<Animate images={IMAGETABLE.IMG_PUSHRIGHT}/>);
+  const story = <Animate images={IMAGETABLE.IMG_PUSHRIGHT} />;
   specs(() =>
     describe("Displaying push up action", () => {
       it("render without error", () => {
@@ -38,7 +38,7 @@ stories.add("push right", () => {
 });
 
 stories.add("push down", () => {
-  const story = (<Animate images={IMAGETABLE.IMG_PUSHDOWN}/>);
+  const story = <Animate images={IMAGETABLE.IMG_PUSHDOWN} />;
   specs(() =>
     describe("Displaying push up action", () => {
       it("render without error", () => {
@@ -52,7 +52,7 @@ stories.add("push down", () => {
 });
 
 stories.add("push left", () => {
-  const story = (<Animate images={IMAGETABLE.IMG_PUSHLEFT}/>);
+  const story = <Animate images={IMAGETABLE.IMG_PUSHLEFT} />;
   specs(() =>
     describe("Displaying push up action", () => {
       it("render without error", () => {

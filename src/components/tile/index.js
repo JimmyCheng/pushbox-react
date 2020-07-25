@@ -1,8 +1,8 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
 
-import DIRECTIONS from '../../consts/directions';
-import Animate from "../animate/index";
+import DIRECTIONS from "../../consts/directions";
+import Animate from "../Animate/index";
 
 import img_ball from "../../media/Ball.bmp";
 import img_black from "../../media/Black.bmp";
@@ -27,38 +27,44 @@ const StaticBox = styled.div`
   font-size: 100%;
 `;
 
-const getImage = (cell) => {
-  if(cell.black) {
-    return (<img src={img_black} alt="black"/>);
+const getImage = cell => {
+  if (cell.black) {
+    return <img src={img_black} alt="black" />;
   }
 
   if (cell.wall) {
-    return (<img src={img_wall} alt="wall"/>);
+    return <img src={img_wall} alt="wall" />;
   }
 
   // Priority to display the upper layer.
   // Box or Spirit -> Ball -> Floor.
   if (cell.box) {
     if (cell.ball) {
-      return (<img src={img_boxFull} alt={"boxfull"}/>);
+      return <img src={img_boxFull} alt={"boxfull"} />;
     } else {
-      return (<img src={img_box} alt="box"/>);
+      return <img src={img_box} alt="box" />;
     }
   }
 
   if (cell.spirit) {
     switch (cell.action) {
       case DIRECTIONS.DOWN:
-        return (<Animate images={[img_pushDown1, img_pushDown2]} alt="pushdown"/>);
+        return (
+          <Animate images={[img_pushDown1, img_pushDown2]} alt="pushdown" />
+        );
 
       case DIRECTIONS.LEFT:
-        return (<Animate images={[img_pushLeft1, img_pushLeft2]} alt="pushleft"/>);
+        return (
+          <Animate images={[img_pushLeft1, img_pushLeft2]} alt="pushleft" />
+        );
 
       case DIRECTIONS.RIGHT:
-        return (<Animate images={[img_pushRight1, img_pushRight2]} alt="pushright"/>);
+        return (
+          <Animate images={[img_pushRight1, img_pushRight2]} alt="pushright" />
+        );
 
       case DIRECTIONS.UP:
-        return (<Animate images={[img_pushUp1, img_pushUp2]} alt="pushup"/>);
+        return <Animate images={[img_pushUp1, img_pushUp2]} alt="pushup" />;
       case DIRECTIONS.NONE:
       default:
         return null;
@@ -66,20 +72,16 @@ const getImage = (cell) => {
   }
 
   if (cell.ball) {
-    return (<img src={img_ball} alt="ball"/>);
+    return <img src={img_ball} alt="ball" />;
   }
 
   if (cell.floor) {
-    return (<img src={img_floor} alt="floor"/>);
+    return <img src={img_floor} alt="floor" />;
   }
 };
 
-const Tile = ({cell}) => {
-  return (
-    <StaticBox>
-      {getImage(cell)}
-    </StaticBox>
-  )
+const Tile = ({ cell }) => {
+  return <StaticBox>{getImage(cell)}</StaticBox>;
 };
 
 export default Tile;
