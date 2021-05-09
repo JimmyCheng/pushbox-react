@@ -10,7 +10,7 @@
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
     "expect": "^26.1.0",
-    "lodash": "^4.17.19",
+    "lodash": "^4.17.21",
     "orcs-design-system": "^0.9.111",
     "react": "16.13.0",
     "react-dom": "16.8.6",
